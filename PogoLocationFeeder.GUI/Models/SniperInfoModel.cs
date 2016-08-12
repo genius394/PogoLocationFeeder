@@ -1,4 +1,22 @@
-﻿using System;
+﻿/*
+PogoLocationFeeder gathers pokemon data from various sources and serves it to connected clients
+Copyright (C) 2016  PogoLocationFeeder Development Team <admin@pokefeeder.live>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading;
@@ -24,6 +42,7 @@ namespace PogoLocationFeeder.GUI.Models {
         {
             copyCoordsCommand = new ActionCommand(CopyCoords);
             PokeSnipersCommand = new ActionCommand(PokeSnipers);
+            RemoveMe = new ActionCommand(Remove);
             SniperVisibility = GlobalSettings.SniperVisibility;
             Created = DateTime.Now;
         }
@@ -56,8 +75,13 @@ namespace PogoLocationFeeder.GUI.Models {
 
         public ICommand copyCoordsCommand { get; }
         public ICommand PokeSnipersCommand { get; }
+        public ICommand RemoveMe { get; }
 
         public DateTime Created;
+
+        public void Remove() {
+            GlobalVariables.PokemonsInternal.Remove(this);
+        }
 
         public void CopyCoords()
         {

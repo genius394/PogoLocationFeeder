@@ -1,4 +1,22 @@
-﻿using System;
+﻿/*
+PogoLocationFeeder gathers pokemon data from various sources and serves it to connected clients
+Copyright (C) 2016  PogoLocationFeeder Development Team <admin@pokefeeder.live>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
@@ -11,6 +29,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using log4net.Config;
+using MahApps.Metro;
 using MaterialDesignThemes.Wpf;
 using PogoLocationFeeder.Common;
 using PogoLocationFeeder.Config;
@@ -27,6 +46,7 @@ namespace PogoLocationFeeder.GUI.ViewModels
     public class MainWindowViewModel
     {
         private Visibility _colVisibility;
+        private ComboBoxItem _appTheme;
 
         public MainWindowViewModel()
         {
@@ -120,6 +140,33 @@ namespace PogoLocationFeeder.GUI.ViewModels
             set { _colVisibility = value; }
         }
 
+        public ComboBoxItem AppTheme {
+            get { return _appTheme; }
+            set {
+                ChangeTheme(value.Content.ToString());
+                _appTheme = value;
+            }
+        }
+
+        public string AppThemeText { get; set; }
+
+        public void ChangeTheme(string theme) {
+            try {
+                switch (theme.ToLower()) {
+                    case "light":
+                        new PaletteHelper().SetLightDark(false);
+                        break;
+                    case "dark":
+                        new PaletteHelper().SetLightDark(true);
+                        break;
+
+                }
+
+            } catch (Exception) {
+                
+            }
+        }
+
         public void RemovePath()
         {
             Sniper2Exe = "";
@@ -145,6 +192,7 @@ namespace PogoLocationFeeder.GUI.ViewModels
             UseSkiplagged = GlobalSettings.VerifyOnSkiplagged;
             RemoveMinutes = GlobalSettings.RemoveAfter.ToString();
             UseFilter = GlobalSettings.UseFilter;
+            AppThemeText = GlobalSettings.AppTheme;
             TransitionerIndex = 1;
 
         }
@@ -167,6 +215,7 @@ namespace PogoLocationFeeder.GUI.ViewModels
             GlobalSettings.RemoveAfter = int.Parse(RemoveMinutes);
             GlobalSettings.VerifyOnSkiplagged = UseSkiplagged;
             GlobalSettings.UseFilter = UseFilter;
+            GlobalSettings.AppTheme = AppThemeText;
             GlobalSettings.Save();
 
             GlobalSettings.Output.RemoveListExtras();

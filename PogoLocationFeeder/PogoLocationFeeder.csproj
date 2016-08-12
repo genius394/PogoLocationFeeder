@@ -143,6 +143,7 @@
     <Compile Include="Helper\ChannelParser.cs" />
     <Compile Include="Helper\Partitioner.cs" />
     <Compile Include="Helper\PokemonParser.cs" />
+    <Compile Include="Helper\UserAgentHelper.cs" />
     <Compile Include="Helper\VersionCheckState.cs" />
     <Compile Include="Readers\DiscordWebReader.cs" />
     <Compile Include="Config\Settings.cs" />
@@ -151,7 +152,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\PokeSniperRarePokemonRepository.cs" />
     <Compile Include="Repository\PokemonGoIVClubRarePokemonRepository.cs" />
-    <Compile Include="Repository\RareSpawnsRarePokemonRepository.cs" />
     <Compile Include="Repository\PokezzRarePokemonRepository.cs" />
     <Compile Include="Repository\PokewatchersRarePokemonRepository.cs" />
     <Compile Include="Repository\IRarePokemonRepository.cs" />

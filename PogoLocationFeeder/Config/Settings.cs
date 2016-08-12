@@ -1,3 +1,21 @@
+/*
+PogoLocationFeeder gathers pokemon data from various sources and serves it to connected clients
+Copyright (C) 2016  PogoLocationFeeder Development Team <admin@pokefeeder.live>
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 #region using directives
 
 using System;
@@ -25,11 +43,12 @@ namespace PogoLocationFeeder.Config
         public static int Port = 16969;
         public static bool UsePokeSnipers = true;
         public static bool UseTrackemon = false;
-        public static bool UseRareSpawns = true;
         public static bool UsePokewatchers = true;
         public static bool UsePokezz = true;
         public static bool UsePokemonGoIVClub = true;
         public static bool UseFilter = true;
+        public static string AppTheme = "Dark";
+
 
         public static string PokeSnipers2Exe = "";
         public static int RemoveAfter = 15;
@@ -61,7 +80,6 @@ namespace PogoLocationFeeder.Config
                 settings = new GlobalSettings();
                 Port = set.Port;
                 //UseTrackemon = set.UseTrackemon;
-                UseRareSpawns = set.UseRareSpawns;
                 UsePokeSnipers = set.UsePokeSnipers;
                 UsePokewatchers = set.UsePokewatchers;
                 UsePokezz = set.UsePokezz;
@@ -71,6 +89,7 @@ namespace PogoLocationFeeder.Config
                 ShowLimit = Math.Max(set.ShowLimit, 1);
                 PokeSnipers2Exe = set.PokeSnipers2Exe;
                 UseFilter = set.UseFilter;
+                AppTheme = set.AppTheme;
             }
             else
             {
@@ -92,7 +111,7 @@ namespace PogoLocationFeeder.Config
 
         public static bool IsOneClickSnipeSupported()
         {
-            if (GlobalSettings.PokeSnipers2Exe != null && GlobalSettings.PokeSnipers2Exe.Contains(".exe"))
+            if (PokeSnipers2Exe != null && PokeSnipers2Exe.Contains(".exe"))
             {
                 return true;
             }
@@ -167,10 +186,6 @@ namespace PogoLocationFeeder.Config
 
         [DefaultValue(true)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
-        public bool UseRareSpawns = GlobalSettings.UseRareSpawns;
-
-        [DefaultValue(true)]
-        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool UsePokewatchers = GlobalSettings.UsePokewatchers;
 
         [DefaultValue("")]
@@ -195,6 +210,10 @@ namespace PogoLocationFeeder.Config
         [DefaultValue(true)]
         [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
         public bool UseFilter = GlobalSettings.UseFilter;
+
+        [DefaultValue("Dark")]
+        [JsonProperty(DefaultValueHandling = DefaultValueHandling.Populate)]
+        public string AppTheme = GlobalSettings.AppTheme;
 
 
     }
